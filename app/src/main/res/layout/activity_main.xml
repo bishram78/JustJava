@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/coffee_image"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/MainHeaderTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_act_header_height"
+        android:gravity="center_horizontal|bottom"
+        android:text="@string/text_coffee_factory" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBlackPartial"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/main_linear_layout_pad16">
+
+            <LinearLayout
+                style="@style/MainLayoutCommonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/edit_text_customer_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/text_hint_customer_name"
+                    android:inputType="textCapWords"
+                    android:maxLength="36"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/MainLayoutCommonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MainLabelTopic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_topic_toppings" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/main_view_height"
+                    android:background="@color/colorViewDivider" />
+
+                <CheckBox
+                    android:id="@+id/whipped_cream_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="checkboxClicked"
+                    android:text="@string/text_checkbox_whipped_cream" />
+
+                <CheckBox
+                    android:id="@+id/chocolate_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="checkboxClicked"
+                    android:text="@string/text_checkbox_chocolate" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/MainLayoutCommonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/MainLabelTopic"
+                        android:layout_width="@dimen/main_text_view_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/text_topic_quantity" />
+
+                    <TextView
+                        style="@style/MainLabelTopic"
+                        android:layout_width="@dimen/main_text_view_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/text_topic_price" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/main_view_height"
+                    android:background="@color/colorViewDivider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/quantity_text_view"
+                        style="@style/MainTextDescStyle"
+                        android:layout_width="@dimen/main_text_view_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/text_quantity" />
+
+                    <View
+                        android:layout_width="@dimen/main_view_width"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorViewDivider" />
+
+                    <TextView
+                        android:id="@+id/price_text_view"
+                        style="@style/MainTextDescStyle"
+                        android:layout_width="@dimen/main_text_view_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/text_price" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        style="@style/MainButtonAddSubStyle"
+                        android:layout_width="@dimen/main_button_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="decrement"
+                        android:text="@string/text_button_minus" />
+
+                    <View
+                        android:layout_width="@dimen/main_view_width"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorViewDivider" />
+
+                    <Button
+                        style="@style/MainButtonAddSubStyle"
+                        android:layout_width="@dimen/main_button_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="increment"
+                        android:text="@string/text_button_plus" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/MainLayoutCommonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MainLabelTopic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_topic_summary" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/main_view_height"
+                    android:background="@color/colorViewDivider" />
+
+                <TextView
+                    android:id="@+id/order_summary_text_view"
+                    style="@style/MainTextSummaryStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_summary" />
+            </LinearLayout>
+
+            <Button
+                style="@style/MainButtonConfirmStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="submitOrder"
+                android:text="@string/text_button_confirm" />
+
+            <TextView
+                style="@style/MainTextPoweredStyle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/main_text_view_height"
+                android:layout_weight="1"
+                android:text="@string/text_powered_by" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

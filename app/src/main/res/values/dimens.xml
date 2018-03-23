@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="main_act_header_height">80dp</dimen>
+    <dimen name="main_linear_layout_pad16">16dp</dimen>
+    <dimen name="main_text_view_width">0dp</dimen>
+    <dimen name="main_text_view_height">0dp</dimen>
+    <dimen name="main_button_width">0dp</dimen>
+    <dimen name="main_view_width">1px</dimen>
+    <dimen name="main_view_height">1px</dimen>
+</resources>
