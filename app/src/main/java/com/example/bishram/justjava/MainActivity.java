@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         priceTextView = (TextView) findViewById(R.id.price_text_view);
         whippedCreamCheckbox = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
         chocolateCheckbox = (CheckBox) findViewById(R.id.chocolate_checkbox);
-        summaryTextView = (TextView) findViewById(R.id.summary_text_view);
+        summaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
         customerNameEditText = (EditText) findViewById(R.id.edit_text_customer_name);
     }
 

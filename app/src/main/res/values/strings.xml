@@ -5,6 +5,8 @@
     <string name="text_button_confirm">Confirm order</string>
     <string name="text_checkbox_whipped_cream">Whipped cream</string>
     <string name="text_checkbox_chocolate">Chocolate</string>
+    <string name="text_checkbox_ice_cream">Ice cream</string>
+    <string name="text_checkbox_mint_flavour">Mint flavour</string>
     <string name="text_hint_customer_name">Customer\'s full name</string>
     <string name="text_topic_toppings">Toppings</string>
     <string name="text_topic_quantity">Quantity</string>
