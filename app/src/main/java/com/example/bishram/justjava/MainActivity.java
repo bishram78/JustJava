@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.NumberFormat;
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -68,14 +69,14 @@ public class MainActivity extends AppCompatActivity {
      */
     public void initializeViews(){
         quantityTextView = findViewById(R.id.quantity_text_view);
-        priceTextView = (TextView) findViewById(R.id.price_text_view);
-        whippedCreamCheckbox = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
-        chocolateCheckbox = (CheckBox) findViewById(R.id.chocolate_checkbox);
-        iceCreamCheckbox = (CheckBox) findViewById(R.id.ice_cream_checkbox);
-        mintFlavourCheckbox = (CheckBox) findViewById(R.id.mint_flavour_checkbox);
-        summaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
-        customerNameEditText = (EditText) findViewById(R.id.edit_text_customer_name);
-        confirmButton = (Button) findViewById(R.id.confirm_button);
+        priceTextView = findViewById(R.id.price_text_view);
+        whippedCreamCheckbox = findViewById(R.id.whipped_cream_checkbox);
+        chocolateCheckbox = findViewById(R.id.chocolate_checkbox);
+        iceCreamCheckbox = findViewById(R.id.ice_cream_checkbox);
+        mintFlavourCheckbox = findViewById(R.id.mint_flavour_checkbox);
+        summaryTextView = findViewById(R.id.order_summary_text_view);
+        customerNameEditText = findViewById(R.id.edit_text_customer_name);
+        confirmButton = findViewById(R.id.confirm_button);
     }
 
     @Override
@@ -170,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
         else {
             orderSummary = orderSummary + getString(R.string.text_no_of_cups) + " " + quantity + " " + getString(R.string.text_cups);
         }
-        orderSummary = orderSummary + getString(R.string.text_total_price) + " \u20B9 " + String.format("%.2f", totalPrice);
+        orderSummary = orderSummary + getString(R.string.text_total_price) + " \u20B9 " + String.format(Locale.getDefault(),"%.2f", totalPrice);
         orderSummary = orderSummary + getString(R.string.text_thank_you);
         return orderSummary;
     }
@@ -283,10 +284,14 @@ public class MainActivity extends AppCompatActivity {
      * @param number is the quantity of the cups.
      */
     private void display(int number) {
-        if (number > 1)
-            quantityTextView.setText(number + " " + getString(R.string.text_cups));
-        else
-            quantityTextView.setText(number + " " + getString(R.string.text_cup));
+        if (number > 1){
+            String textStr = number + " " + getString(R.string.text_cups);
+            quantityTextView.setText(textStr);
+        }
+        else{
+            String textStr = number + " " + getString(R.string.text_cup);
+            quantityTextView.setText(textStr);
+        }
     }
 
     /**
@@ -295,7 +300,8 @@ public class MainActivity extends AppCompatActivity {
      * @param number is the total price of the coffee ordered.
      */
     private void displayPrice(double number) {
-        priceTextView.setText("\u20B9\u0020" + String.format("%.2f", number));
+        String textStr = "\u20B9\u0020" + String.format(Locale.getDefault(),"%.2f", number);
+        priceTextView.setText(textStr);
     }
 
     /**
