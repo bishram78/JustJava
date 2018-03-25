@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
         customerName = customerNameEditText.getText().toString();
         checkCheckbox();
 
-        String orderSummary = getString(R.string.text_name) + customerName;
+        String orderSummary = getString(R.string.text_name) + " " + customerName;
         if (quantity == 1) {
             orderSummary += "\n" + getString(R.string.text_no_of_cups) +  " " + quantity + " " + getString(R.string.text_cup);
         }
