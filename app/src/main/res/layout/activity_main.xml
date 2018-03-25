@@ -33,7 +33,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/text_hint_customer_name"
-                        android:inputType="textEmailAddress"
+                        android:inputType="textCapWords"
                         android:maxLength="50"
                         android:singleLine="true" />
                 </LinearLayout>
