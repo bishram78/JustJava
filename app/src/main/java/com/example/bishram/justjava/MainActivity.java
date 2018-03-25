@@ -1,17 +1,14 @@
 package com.example.bishram.justjava;
 
+import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.text.NumberFormat;
 import java.util.Locale;
 
 
@@ -25,13 +22,12 @@ public class MainActivity extends AppCompatActivity {
     CheckBox chocolateCheckbox;
     CheckBox iceCreamCheckbox;
     CheckBox mintFlavourCheckbox;
-    Button confirmButton;
 
     int quantity = 1;
+    int count = 1;
+    double pricePerCup = 7.25;
     int summaryTextSize;
     int summaryTextColor;
-    int count = 1;
-    double pricePerCup = 5.00;
     double totalPrice;
     String summaryText = "";
     String customerName = "";
@@ -64,21 +60,6 @@ public class MainActivity extends AppCompatActivity {
         displayMessage(summaryText, summaryTextSize, summaryTextColor);
     }
 
-    /**
-     * This method will get all the views from the layout resource file.
-     */
-    public void initializeViews(){
-        quantityTextView = findViewById(R.id.quantity_text_view);
-        priceTextView = findViewById(R.id.price_text_view);
-        whippedCreamCheckbox = findViewById(R.id.whipped_cream_checkbox);
-        chocolateCheckbox = findViewById(R.id.chocolate_checkbox);
-        iceCreamCheckbox = findViewById(R.id.ice_cream_checkbox);
-        mintFlavourCheckbox = findViewById(R.id.mint_flavour_checkbox);
-        summaryTextView = findViewById(R.id.order_summary_text_view);
-        customerNameEditText = findViewById(R.id.edit_text_customer_name);
-        confirmButton = findViewById(R.id.confirm_button);
-    }
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -103,6 +84,19 @@ public class MainActivity extends AppCompatActivity {
         displayMessage(summaryText, summaryTextSize, summaryTextColor);
     }
 
+    /**
+     * This method will get all the views from the layout resource file.
+     */
+    public void initializeViews(){
+        quantityTextView = findViewById(R.id.quantity_text_view);
+        priceTextView = findViewById(R.id.price_text_view);
+        whippedCreamCheckbox = findViewById(R.id.whipped_cream_checkbox);
+        chocolateCheckbox = findViewById(R.id.chocolate_checkbox);
+        iceCreamCheckbox = findViewById(R.id.ice_cream_checkbox);
+        mintFlavourCheckbox = findViewById(R.id.mint_flavour_checkbox);
+        summaryTextView = findViewById(R.id.order_summary_text_view);
+        customerNameEditText = findViewById(R.id.edit_text_customer_name);
+    }
     /**
      * This method is called when PLUS BUTTON is clicked.
      */
@@ -146,6 +140,9 @@ public class MainActivity extends AppCompatActivity {
         return pricePerCup * quantity;
     }
 
+    /**
+     * This method checks whether checkboxes are checked or not.
+     */
     public void checkCheckbox() {
         whippedCreamChecked = whippedCreamCheckbox.isChecked();
         chocolateChecked = chocolateCheckbox.isChecked();
@@ -160,19 +157,21 @@ public class MainActivity extends AppCompatActivity {
         customerName = customerNameEditText.getText().toString();
         checkCheckbox();
 
-        String orderSummary = getString(R.string.text_name) + " " + customerName;
-        orderSummary = orderSummary + getString(R.string.text_question_whipped_cream) + " " + whippedCreamChecked;
-        orderSummary = orderSummary + getString(R.string.text_question_chocolate) + " " + chocolateChecked;
-        orderSummary = orderSummary + getString(R.string.text_question_ice_cream) + " " + iceCreamChecked;
-        orderSummary = orderSummary + getString(R.string.text_question_mint_flavour) + " " + mintFlavourChecked;
+        String orderSummary = getString(R.string.text_name) + customerName;
         if (quantity == 1) {
-            orderSummary = orderSummary + getString(R.string.text_no_of_cups) +  " " + quantity + " " + getString(R.string.text_cup);
+            orderSummary += "\n" + getString(R.string.text_no_of_cups) +  " " + quantity + " " + getString(R.string.text_cup);
         }
         else {
-            orderSummary = orderSummary + getString(R.string.text_no_of_cups) + " " + quantity + " " + getString(R.string.text_cups);
+            orderSummary += "\n" + getString(R.string.text_no_of_cups) + " " + quantity + " " + getString(R.string.text_cups);
         }
-        orderSummary = orderSummary + getString(R.string.text_total_price) + " \u20B9 " + String.format(Locale.getDefault(),"%.2f", totalPrice);
-        orderSummary = orderSummary + getString(R.string.text_thank_you);
+        orderSummary += "\n" + getString(R.string.text_total_price) + " \u20B9 " + String.format(Locale.getDefault(),"%.2f", totalPrice);
+        orderSummary += "\n";
+        orderSummary += "\n" + getString(R.string.text_question_whipped_cream) + " " + whippedCreamChecked;
+        orderSummary += "\n" + getString(R.string.text_question_chocolate) + " " + chocolateChecked;
+        orderSummary += "\n" + getString(R.string.text_question_ice_cream) + " " + iceCreamChecked;
+        orderSummary += "\n" + getString(R.string.text_question_mint_flavour) + " " + mintFlavourChecked;
+        orderSummary += "\n";
+        orderSummary += "\n" + getString(R.string.text_thank_you);
         return orderSummary;
     }
 
@@ -181,27 +180,21 @@ public class MainActivity extends AppCompatActivity {
      */
     public void submitOrder(View view) {
         count = 1;
-        summaryText = createOrderSummary();
-        summaryTextSize = 16;
-        summaryTextColor = Color.BLACK;
-        displayMessage(summaryText, summaryTextSize, summaryTextColor);
-
-        count = 1;
         quantity = 1;
+        pricePerCup = 7.25;
+        summaryText = createOrderSummary();
         display(quantity);
-        totalPrice = 5.00;
-        displayPrice(totalPrice);
-        whippedCreamCheckbox.setChecked(false);
-        chocolateCheckbox.setChecked(false);
-        iceCreamCheckbox.setChecked(false);
-        mintFlavourCheckbox.setChecked(false);
-        customerNameEditText.getText().clear();
-        //confirmButton.setEnabled(false);
-        //confirmButton.setBackground(getResources().getColor(R.color.colorButton));
-        //confirmButton.setTextColor(getResources().getColor(R.color.colorBlackPartial));
+        displayPrice(pricePerCup);
+
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.text_email_subject));
+        intent.putExtra(Intent.EXTRA_TEXT, summaryText);
+        if (intent.resolveActivity(getPackageManager()) != null)
+            startActivity(intent);
     }
 
-    /*
+    /**
      * This method will handle the checkbox clicks
      */
     public void checkboxClicked(View view){

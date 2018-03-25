@@ -33,8 +33,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/text_hint_customer_name"
-                        android:inputType="textCapWords"
-                        android:maxLength="36"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="50"
                         android:singleLine="true" />
                 </LinearLayout>
 
@@ -216,7 +216,6 @@
             android:background="@color/colorViewDivider" />
 
         <Button
-            android:id="@+id/confirm_button"
             style="@style/MainButtonConfirmStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

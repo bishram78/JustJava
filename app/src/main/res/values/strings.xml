@@ -2,7 +2,7 @@
     <string name="app_name">Just Java</string>
     <string name="text_button_minus">-</string>
     <string name="text_button_plus">+</string>
-    <string name="text_button_confirm">Confirm order</string>
+    <string name="text_button_confirm">Place order</string>
     <string name="text_checkbox_whipped_cream">Whipped cream</string>
     <string name="text_checkbox_chocolate">Chocolate</string>
     <string name="text_checkbox_ice_cream">Ice cream</string>
@@ -21,11 +21,12 @@
     <string name="text_cup">cup</string>
     <string name="text_cups">cups</string>
     <string name="text_name">Name :</string>
-    <string name="text_no_of_cups">\nQuantity :</string>
-    <string name="text_total_price">\nTotal price :</string>
-    <string name="text_question_whipped_cream">\nAdd Whipped cream topping? :</string>
-    <string name="text_question_chocolate">\nAdd Chocolate topping? :</string>
-    <string name="text_question_ice_cream">\nAdd Ice cream topping? :</string>
-    <string name="text_question_mint_flavour">\nAdd Mint flavour topping? :</string>
-    <string name="text_thank_you">\nThank you for the Order!</string>
+    <string name="text_no_of_cups">Quantity :</string>
+    <string name="text_total_price">Total price :</string>
+    <string name="text_question_whipped_cream">Whipped cream topping :</string>
+    <string name="text_question_chocolate">Chocolate topping :</string>
+    <string name="text_question_ice_cream">Ice cream topping :</string>
+    <string name="text_question_mint_flavour">Mint flavour topping :</string>
+    <string name="text_thank_you">Thank you for the Order!</string>
+    <string name="text_email_subject">Your order from Coffee Factory.</string>
 </resources>
