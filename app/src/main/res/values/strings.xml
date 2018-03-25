@@ -20,4 +20,12 @@
     <string name="text_powered_by">Powered by #Taazgee</string>
     <string name="text_cup">cup</string>
     <string name="text_cups">cups</string>
+    <string name="text_name">Name :</string>
+    <string name="text_no_of_cups">\nQuantity</string>
+    <string name="text_total_price">\nTotal price :</string>
+    <string name="text_question_whipped_cream">\nAdd Whipped cream topping? :</string>
+    <string name="text_question_chocolate">\nAdd Chocolate topping? :</string>
+    <string name="text_question_ice_cream">\nAdd Ice cream topping? :</string>
+    <string name="text_question_mint_flavour">\nAdd Mint flavour topping? :</string>
+    <string name="text_thank_you">\nThank you for the Order!</string>
 </resources>

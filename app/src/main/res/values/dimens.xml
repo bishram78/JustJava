@@ -7,4 +7,5 @@
     <dimen name="main_button_width">0dp</dimen>
     <dimen name="main_view_width">1px</dimen>
     <dimen name="main_view_height">1px</dimen>
+    <dimen name="main_view_margin_top_bottom">4dp</dimen>
 </resources>

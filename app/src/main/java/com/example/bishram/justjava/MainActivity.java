@@ -1,12 +1,3 @@
-
-/**
- * IMPORTANT: Make sure you are using the correct package name.
- * This example uses the package name:
- * package com.example.android.justjava
- * If you get an error when copying this code into Android studio, update it to match teh package name found
- * in the project's AndroidManifest.xml file.
- **/
-
 package com.example.bishram.justjava;
 
 import android.graphics.Color;
@@ -14,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,9 +13,7 @@ import android.widget.Toast;
 
 import java.text.NumberFormat;
 
-/**
- * This app displays an order form to order coffee.
- */
+
 public class MainActivity extends AppCompatActivity {
 
     TextView quantityTextView;
@@ -32,17 +22,22 @@ public class MainActivity extends AppCompatActivity {
     EditText customerNameEditText;
     CheckBox whippedCreamCheckbox;
     CheckBox chocolateCheckbox;
+    CheckBox iceCreamCheckbox;
+    CheckBox mintFlavourCheckbox;
+    Button confirmButton;
 
     int quantity = 1;
     int summaryTextSize;
     int summaryTextColor;
     int count = 1;
-    double pricePerCup = 7.25;
+    double pricePerCup = 5.00;
     double totalPrice;
     String summaryText = "";
     String customerName = "";
     boolean whippedCreamChecked;
     boolean chocolateChecked;
+    boolean iceCreamChecked;
+    boolean mintFlavourChecked;
 
     private static final String KEY_QUANTITY = "key_quantity";
     private static final String KEY_TOTAL_PRICE = "key_total_price";
@@ -76,16 +71,13 @@ public class MainActivity extends AppCompatActivity {
         priceTextView = (TextView) findViewById(R.id.price_text_view);
         whippedCreamCheckbox = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
         chocolateCheckbox = (CheckBox) findViewById(R.id.chocolate_checkbox);
+        iceCreamCheckbox = (CheckBox) findViewById(R.id.ice_cream_checkbox);
+        mintFlavourCheckbox = (CheckBox) findViewById(R.id.mint_flavour_checkbox);
         summaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
         customerNameEditText = (EditText) findViewById(R.id.edit_text_customer_name);
+        confirmButton = (Button) findViewById(R.id.confirm_button);
     }
 
-    /**
-     * This method will save the current state of the values which are not to changed
-     * on orientation change or other change in state.
-     *
-     * @param outState
-     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -96,11 +88,6 @@ public class MainActivity extends AppCompatActivity {
         outState.putInt(KEY_SUMMARY_TEXT_COLOR, summaryTextColor);
     }
 
-    /**
-     * This method restores the values saved on onSaveInstanceState.
-     *
-     * @param savedInstanceState
-     */
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -158,17 +145,33 @@ public class MainActivity extends AppCompatActivity {
         return pricePerCup * quantity;
     }
 
+    public void checkCheckbox() {
+        whippedCreamChecked = whippedCreamCheckbox.isChecked();
+        chocolateChecked = chocolateCheckbox.isChecked();
+        iceCreamChecked = iceCreamCheckbox.isChecked();
+        mintFlavourChecked = mintFlavourCheckbox.isChecked();
+    }
+
     /**
      * This method create the order summary text shown and send to customer's mail.
-     *
-     * @return orderSummary.
      */
     private String createOrderSummary() {
         customerName = customerNameEditText.getText().toString();
-        String orderSummary = "Name : " + customerName;
-        orderSummary = orderSummary + "\nQuantity : " + quantity;
-        orderSummary = orderSummary + "\nTotal Price : \u20B9 " + totalPrice;
-        orderSummary = orderSummary + "\nThank you for the Order!";
+        checkCheckbox();
+
+        String orderSummary = getString(R.string.text_name) + " " + customerName;
+        orderSummary = orderSummary + getString(R.string.text_question_whipped_cream) + " " + whippedCreamChecked;
+        orderSummary = orderSummary + getString(R.string.text_question_chocolate) + " " + chocolateChecked;
+        orderSummary = orderSummary + getString(R.string.text_question_ice_cream) + " " + iceCreamChecked;
+        orderSummary = orderSummary + getString(R.string.text_question_mint_flavour) + " " + mintFlavourChecked;
+        if (quantity == 1) {
+            orderSummary = orderSummary + getString(R.string.text_quantity) +  " " + quantity + " " + getString(R.string.text_cup);
+        }
+        else {
+            orderSummary = orderSummary + getString(R.string.text_quantity) + " " + quantity + " " + getString(R.string.text_cups);
+        }
+        orderSummary = orderSummary + getString(R.string.text_total_price) + " \u20B9 " + String.format("%.2f", totalPrice);
+        orderSummary = orderSummary + getString(R.string.text_thank_you);
         return orderSummary;
     }
 
@@ -185,19 +188,24 @@ public class MainActivity extends AppCompatActivity {
         count = 1;
         quantity = 1;
         display(quantity);
-        totalPrice = 7.25;
+        totalPrice = 5.00;
         displayPrice(totalPrice);
         whippedCreamCheckbox.setChecked(false);
         chocolateCheckbox.setChecked(false);
+        iceCreamCheckbox.setChecked(false);
+        mintFlavourCheckbox.setChecked(false);
         customerNameEditText.getText().clear();
+        //confirmButton.setEnabled(false);
+        //confirmButton.setBackground(getResources().getColor(R.color.colorButton));
+        //confirmButton.setTextColor(getResources().getColor(R.color.colorBlackPartial));
     }
 
     /*
      * This method will handle the checkbox clicks
      */
     public void checkboxClicked(View view){
-        whippedCreamChecked = whippedCreamCheckbox.isChecked();
-        chocolateChecked = chocolateCheckbox.isChecked();
+        checkCheckbox();
+
         if (count==1) {
             summaryText = getText(R.string.text_summary_pre_message).toString();
             summaryTextSize = 12;
@@ -209,63 +217,61 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()){
             case R.id.whipped_cream_checkbox:
                 if (whippedCreamChecked) {
-                    if (chocolateChecked) {
-                        quantity = 1;
-                        pricePerCup = 10.25;
-                        display(quantity);
-                        displayPrice(pricePerCup);
-                    }
-                    else {
-                        quantity = 1;
-                        pricePerCup = 8.25;
-                        display(quantity);
-                        displayPrice(pricePerCup);
-                    }
+                    int toppingPrice = quantity;
+                    totalPrice += toppingPrice;
+                    displayPrice(totalPrice);
+                    pricePerCup += 1;
                 }
                 else {
-                    if (chocolateChecked) {
-                        quantity = 1;
-                        pricePerCup = 9.25;
-                        display(quantity);
-                        displayPrice(pricePerCup);
-                    }
-                    else {
-                        quantity = 1;
-                        pricePerCup = 7.25;
-                        display(quantity);
-                        displayPrice(pricePerCup);
-                    }
+                    int toppingPrice = quantity;
+                    totalPrice -= toppingPrice;
+                    displayPrice(totalPrice);
+                    pricePerCup -= 1;
                 }
                 break;
 
             case R.id.chocolate_checkbox:
                 if (chocolateChecked) {
-                    if (whippedCreamChecked) {
-                        quantity = 1;
-                        pricePerCup = 10.25;
-                        display(quantity);
-                        displayPrice(pricePerCup);
-                    }
-                    else {
-                        quantity = 1;
-                        pricePerCup = 9.25;
-                        display(quantity);
-                        displayPrice(pricePerCup);
-                    }
+                    int toppingPrice = 2 * quantity;
+                    totalPrice += toppingPrice;
+                    displayPrice(totalPrice);
+                    pricePerCup += 2;
                 }
                 else {
-                    if (whippedCreamChecked) {
-                        quantity = 1;
-                        pricePerCup = 8.25;
-                        display(quantity);
-                        displayPrice(pricePerCup);
-                    }
-                    else {
-                        quantity = 1;
-                        pricePerCup = 7.25;
-                        display(quantity);
-                        displayPrice(pricePerCup);
-                    }
+                    int toppingPrice = 2 * quantity;
+                    totalPrice -= toppingPrice;
+                    displayPrice(totalPrice);
+                    pricePerCup -= 2;
+                }
+                break;
+
+            case R.id.ice_cream_checkbox:
+                if (iceCreamChecked) {
+                    int toppingPrice = 3 * quantity;
+                    totalPrice += toppingPrice;
+                    displayPrice(totalPrice);
+                    pricePerCup += 3;
+                }
+                else {
+                    int toppingPrice = 3 * quantity;
+                    totalPrice -= toppingPrice;
+                    displayPrice(totalPrice);
+                    pricePerCup -= 3;
+                }
+                break;
+
+            case R.id.mint_flavour_checkbox:
+                if (mintFlavourChecked) {
+                    int toppingPrice = 4 * quantity;
+                    totalPrice += toppingPrice;
+                    displayPrice(totalPrice);
+                    pricePerCup += 4;
+                }
+                else {
+                    int toppingPrice = 4 * quantity;
+                    totalPrice -= toppingPrice;
+                    displayPrice(totalPrice);
+                    pricePerCup -= 4;
                 }
                 break;
         }

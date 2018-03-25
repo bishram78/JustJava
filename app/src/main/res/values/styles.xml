@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/colorMainHeader</item>
         <item name="colorPrimaryDark">@android:color/transparent</item>
         <item name="colorAccent">@color/colorMainHeader</item>
-        <item name="colorButtonNormal">@color/colorMainHeader</item>
+        <item name="colorButtonNormal">@color/colorButton</item>
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">true</item>
@@ -16,20 +16,25 @@
     <style name="MainHeaderTextStyle">
         <item name="android:background">@color/colorMainHeader</item>
         <item name="android:paddingBottom">12dp</item>
+        <item name="android:gravity">center_horizontal|bottom</item>
         <item name="android:textSize">28sp</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="MainScrollViewStyle">
+        <item name="android:paddingTop">@dimen/main_linear_layout_pad16</item>
+        <item name="android:paddingBottom">@dimen/main_linear_layout_pad16</item>
+    </style>
     <style name="MainLayoutCommonStyle">
         <item name="android:layout_marginLeft">24dp</item>
         <item name="android:layout_marginRight">24dp</item>
-        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginTop">@dimen/main_linear_layout_pad16</item>
         <item name="android:background">#B7FFFFFF</item>
     </style>
 
-    <style name="MainLabelTopic">
+    <style name="MainLabelTopicStyle">
         <item name="android:layout_marginBottom">4dp</item>
         <item name="android:layout_marginLeft">6dp</item>
         <item name="android:layout_marginTop">4dp</item>
@@ -64,7 +69,8 @@
     <style name="MainButtonConfirmStyle">
         <item name="android:layout_marginLeft">20dp</item>
         <item name="android:layout_marginRight">20dp</item>
-        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginTop">@dimen/main_view_margin_top_bottom</item>
+        <item name="android:layout_marginBottom">@dimen/main_view_margin_top_bottom</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
@@ -75,7 +81,7 @@
         <item name="android:layout_marginBottom">16dp</item>
         <item name="android:layout_marginLeft">24dp</item>
         <item name="android:layout_marginRight">24dp</item>
-        <item name="android:gravity">end|bottom</item>
-        <item name="android:textColor">#24e9ff</item>
+        <item name="android:gravity">center_horizontal|bottom</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 </resources>
