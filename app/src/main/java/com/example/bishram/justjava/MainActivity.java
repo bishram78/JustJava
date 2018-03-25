@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
      * This method will get all the views from the layout resource file.
      */
     public void initializeViews(){
-        quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
+        quantityTextView = findViewById(R.id.quantity_text_view);
         priceTextView = (TextView) findViewById(R.id.price_text_view);
         whippedCreamCheckbox = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
         chocolateCheckbox = (CheckBox) findViewById(R.id.chocolate_checkbox);
@@ -165,10 +165,10 @@ public class MainActivity extends AppCompatActivity {
         orderSummary = orderSummary + getString(R.string.text_question_ice_cream) + " " + iceCreamChecked;
         orderSummary = orderSummary + getString(R.string.text_question_mint_flavour) + " " + mintFlavourChecked;
         if (quantity == 1) {
-            orderSummary = orderSummary + getString(R.string.text_quantity) +  " " + quantity + " " + getString(R.string.text_cup);
+            orderSummary = orderSummary + getString(R.string.text_no_of_cups) +  " " + quantity + " " + getString(R.string.text_cup);
         }
         else {
-            orderSummary = orderSummary + getString(R.string.text_quantity) + " " + quantity + " " + getString(R.string.text_cups);
+            orderSummary = orderSummary + getString(R.string.text_no_of_cups) + " " + quantity + " " + getString(R.string.text_cups);
         }
         orderSummary = orderSummary + getString(R.string.text_total_price) + " \u20B9 " + String.format("%.2f", totalPrice);
         orderSummary = orderSummary + getString(R.string.text_thank_you);

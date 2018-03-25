@@ -21,7 +21,7 @@
     <string name="text_cup">cup</string>
     <string name="text_cups">cups</string>
     <string name="text_name">Name :</string>
-    <string name="text_no_of_cups">\nQuantity</string>
+    <string name="text_no_of_cups">\nQuantity :</string>
     <string name="text_total_price">\nTotal price :</string>
     <string name="text_question_whipped_cream">\nAdd Whipped cream topping? :</string>
     <string name="text_question_chocolate">\nAdd Chocolate topping? :</string>

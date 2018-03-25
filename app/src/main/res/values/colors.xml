@@ -7,4 +7,5 @@
     <color name="colorButton">#007899</color>
     <color name="colorBlackPartial">#af000000</color>
     <color name="colorViewDivider">#ACACAC</color>
+    <color name="colorBackground">#E76E4C</color>
 </resources>
