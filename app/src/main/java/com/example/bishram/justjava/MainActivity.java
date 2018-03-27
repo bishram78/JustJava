@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.Locale;
 
 
@@ -16,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
 
     TextView quantityTextView;
     TextView priceTextView;
-    TextView summaryTextView;
     EditText customerNameEditText;
     CheckBox whippedCreamCheckbox;
     CheckBox chocolateCheckbox;
@@ -24,10 +25,7 @@ public class MainActivity extends AppCompatActivity {
     CheckBox mintFlavourCheckbox;
 
     int quantity = 1;
-    int count = 1;
     double pricePerCup = 7.25;
-    int summaryTextSize;
-    int summaryTextColor;
     double totalPrice;
     String summaryText = "";
     String customerName = "";
@@ -38,26 +36,17 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String KEY_QUANTITY = "key_quantity";
     private static final String KEY_TOTAL_PRICE = "key_total_price";
-    private static final String KEY_SUMMARY_TEXT = "key_summary_text";
-    private static final String KEY_SUMMARY_TEXT_SIZE = "key_summary_text_size";
-    private static final String KEY_SUMMARY_TEXT_COLOR = "key_summary_text_color";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Read all the views from the xml layout.
         initializeViews();
 
         totalPrice = calculatePrice();
         display(quantity);
         displayPrice(totalPrice);
-
-        summaryText = getText(R.string.text_summary_pre_message).toString();
-        summaryTextSize = 12;
-        summaryTextColor = Color.RED;
-        displayMessage(summaryText, summaryTextSize, summaryTextColor);
     }
 
     @Override
@@ -65,9 +54,6 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putInt(KEY_QUANTITY, quantity);
         outState.putDouble(KEY_TOTAL_PRICE, totalPrice);
-        outState.putString(KEY_SUMMARY_TEXT, summaryText);
-        outState.putInt(KEY_SUMMARY_TEXT_SIZE, summaryTextSize);
-        outState.putInt(KEY_SUMMARY_TEXT_COLOR, summaryTextColor);
     }
 
     @Override
@@ -75,13 +61,9 @@ public class MainActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         quantity = savedInstanceState.getInt(KEY_QUANTITY);
         totalPrice = savedInstanceState.getDouble(KEY_TOTAL_PRICE);
-        summaryText = savedInstanceState.getString(KEY_SUMMARY_TEXT);
-        summaryTextSize = savedInstanceState.getInt(KEY_SUMMARY_TEXT_SIZE);
-        summaryTextColor = savedInstanceState.getInt(KEY_SUMMARY_TEXT_COLOR);
 
         display(quantity);
         displayPrice(totalPrice);
-        displayMessage(summaryText, summaryTextSize, summaryTextColor);
     }
 
     /**
@@ -94,24 +76,21 @@ public class MainActivity extends AppCompatActivity {
         chocolateCheckbox = findViewById(R.id.chocolate_checkbox);
         iceCreamCheckbox = findViewById(R.id.ice_cream_checkbox);
         mintFlavourCheckbox = findViewById(R.id.mint_flavour_checkbox);
-        summaryTextView = findViewById(R.id.order_summary_text_view);
         customerNameEditText = findViewById(R.id.edit_text_customer_name);
     }
     /**
      * This method is called when PLUS BUTTON is clicked.
      */
     public void increment(View view) {
-        quantity++;
-        totalPrice = calculatePrice();
-        display(quantity);
-        displayPrice(totalPrice);
-
-        if (count == 1) {
-            summaryText = getText(R.string.text_summary_pre_message).toString();
-            summaryTextSize = 12;
-            summaryTextColor = Color.RED;
-            displayMessage(summaryText, summaryTextSize, summaryTextColor);
-            count++;
+        if (quantity >= 100){
+            String positiveText = getString(R.string.text_more_cup);
+            mToast(positiveText);
+        }
+        else {
+            quantity++;
+            totalPrice = calculatePrice();
+            display(quantity);
+            displayPrice(totalPrice);
         }
     }
 
@@ -119,17 +98,15 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when MINUS BUTTON is clicked.
      */
     public void decrement(View view) {
-        quantity--;
-        totalPrice = calculatePrice();
-        display(quantity);
-        displayPrice(totalPrice);
-
-        if (count==1) {
-            summaryText = getText(R.string.text_summary_pre_message).toString();
-            summaryTextSize = 12;
-            summaryTextColor = Color.RED;
-            displayMessage(summaryText, summaryTextSize, summaryTextColor);
-            count++;
+        if (quantity <= 1){
+            String negativeText = getString(R.string.text_less_cup);
+            mToast(negativeText);
+        }
+        else {
+            quantity--;
+            totalPrice = calculatePrice();
+            display(quantity);
+            displayPrice(totalPrice);
         }
     }
 
@@ -166,10 +143,25 @@ public class MainActivity extends AppCompatActivity {
         }
         orderSummary += "\n" + getString(R.string.text_total_price) + " \u20B9 " + String.format(Locale.getDefault(),"%.2f", totalPrice);
         orderSummary += "\n";
-        orderSummary += "\n" + getString(R.string.text_question_whipped_cream) + " " + whippedCreamChecked;
-        orderSummary += "\n" + getString(R.string.text_question_chocolate) + " " + chocolateChecked;
-        orderSummary += "\n" + getString(R.string.text_question_ice_cream) + " " + iceCreamChecked;
-        orderSummary += "\n" + getString(R.string.text_question_mint_flavour) + " " + mintFlavourChecked;
+        if (whippedCreamChecked)
+            orderSummary += "\n" + getString(R.string.text_question_whipped_cream) + " " + getString(R.string.text_yes);
+        else
+            orderSummary += "\n" + getString(R.string.text_question_whipped_cream) + " " + getString(R.string.text_no);
+
+        if (chocolateChecked)
+            orderSummary += "\n" + getString(R.string.text_question_chocolate) + " " + getString(R.string.text_yes);
+        else
+            orderSummary += "\n" + getString(R.string.text_question_chocolate) + " " + getString(R.string.text_no);
+
+        if (iceCreamChecked)
+            orderSummary += "\n" + getString(R.string.text_question_ice_cream) + " " + getString(R.string.text_yes);
+        else
+            orderSummary += "\n" + getString(R.string.text_question_ice_cream) + " " + getString(R.string.text_no);
+
+        if (mintFlavourChecked)
+            orderSummary += "\n" + getString(R.string.text_question_mint_flavour) + " " + getString(R.string.text_yes);
+        else
+            orderSummary += "\n" + getString(R.string.text_question_mint_flavour) + " " + getString(R.string.text_no);
         orderSummary += "\n";
         orderSummary += "\n" + getString(R.string.text_thank_you);
         return orderSummary;
@@ -179,19 +171,27 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        count = 1;
-        quantity = 1;
-        pricePerCup = 7.25;
-        summaryText = createOrderSummary();
-        display(quantity);
-        displayPrice(pricePerCup);
+        customerName = customerNameEditText.getText().toString();
+        int length = customerName.length();
+        if(length > 0) {
+            summaryText = createOrderSummary();
 
-        Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setData(Uri.parse("mailto:"));
-        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.text_email_subject));
-        intent.putExtra(Intent.EXTRA_TEXT, summaryText);
-        if (intent.resolveActivity(getPackageManager()) != null)
-            startActivity(intent);
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:"));
+            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.text_email_subject));
+            intent.putExtra(Intent.EXTRA_TEXT, summaryText);
+            if (intent.resolveActivity(getPackageManager()) != null)
+                startActivity(intent);
+
+            quantity = 1;
+            pricePerCup = 7.25;
+            display(quantity);
+            displayPrice(pricePerCup);
+        }
+        else {
+            customerName = getString(R.string.text_name_warning);
+            mToast(customerName);
+        }
     }
 
     /**
@@ -199,14 +199,6 @@ public class MainActivity extends AppCompatActivity {
      */
     public void checkboxClicked(View view){
         checkCheckbox();
-
-        if (count==1) {
-            summaryText = getText(R.string.text_summary_pre_message).toString();
-            summaryTextSize = 12;
-            summaryTextColor = Color.RED;
-            displayMessage(summaryText, summaryTextSize, summaryTextColor);
-            count++;
-        }
 
         switch (view.getId()){
             case R.id.whipped_cream_checkbox:
@@ -303,10 +295,18 @@ public class MainActivity extends AppCompatActivity {
      * @param message is just the message to be displayed.
      * @param size is the text size.
      * @param colorID is the color of the text.
-     */
+     *
     private void displayMessage(String message, int size, int colorID) {
         summaryTextView.setText(message);
         summaryTextView.setTextSize(size);
         summaryTextView.setTextColor(colorID);
+    }
+    */
+
+    /**
+     * This is toast method.
+     */
+    public void mToast(String text) {
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 }

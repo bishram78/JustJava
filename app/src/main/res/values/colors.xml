@@ -4,5 +4,6 @@
     <color name="colorButton">#007899</color>
     <color name="colorBlackPartial">#af000000</color>
     <color name="colorViewDivider">#ACACAC</color>
-    <color name="colorBackground">#E76E4C</color>
+    <color name="colorBackground">#87e76e4c</color>
+    <color name="colorCommonLayoutBackground">#E0FFFFFF</color>
 </resources>

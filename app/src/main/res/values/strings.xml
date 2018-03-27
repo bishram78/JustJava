@@ -2,7 +2,7 @@
     <string name="app_name">Just Java</string>
     <string name="text_button_minus">-</string>
     <string name="text_button_plus">+</string>
-    <string name="text_button_confirm">Place order</string>
+    <string name="text_button_confirm">Confirm order</string>
     <string name="text_checkbox_whipped_cream">Whipped cream</string>
     <string name="text_checkbox_chocolate">Chocolate</string>
     <string name="text_checkbox_ice_cream">Ice cream</string>
@@ -21,6 +21,7 @@
     <string name="text_cup">cup</string>
     <string name="text_cups">cups</string>
     <string name="text_name">Name :</string>
+    <string name="text_name_warning">Please input the customer name first.</string>
     <string name="text_no_of_cups">Quantity :</string>
     <string name="text_total_price">Total price :</string>
     <string name="text_question_whipped_cream">Whipped cream topping :</string>
@@ -29,4 +30,8 @@
     <string name="text_question_mint_flavour">Mint flavour topping :</string>
     <string name="text_thank_you">Thank you for the Order!</string>
     <string name="text_email_subject">Your order from Coffee Factory.</string>
+    <string name="text_less_cup">Sorry! \nYou cannot order less than 1 cup of coffee.</string>
+    <string name="text_more_cup">Sorry! \nYou cannot order more than 100 cups of coffee.</string>
+    <string name="text_yes">Added</string>
+    <string name="text_no">Not added</string>
 </resources>

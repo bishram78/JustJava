@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="main_act_header_height">80dp</dimen>
-    <dimen name="main_linear_layout_pad16">16dp</dimen>
-    <dimen name="main_text_view_width">0dp</dimen>
-    <dimen name="main_button_width">0dp</dimen>
-    <dimen name="main_view_width">1px</dimen>
-    <dimen name="main_view_height">1px</dimen>
-    <dimen name="main_view_margin_top_bottom">4dp</dimen>
+    <dimen name="margin_padding_0dp">0dp</dimen>
+    <dimen name="margin_padding_1dp">1px</dimen>
+    <dimen name="margin_padding_4dp">4dp</dimen>
+    <dimen name="margin_padding_6dp">6dp</dimen>
+    <dimen name="margin_padding_12dp">12dp</dimen>
+    <dimen name="margin_padding_16dp">16dp</dimen>
+    <dimen name="margin_padding_24dp">24dp</dimen>
+    <dimen name="margin_padding_40dp">40dp</dimen>
+    <dimen name="margin_padding_80dp">80dp</dimen>
+
+    <dimen name="text_size_16sp">16sp</dimen>
+    <dimen name="text_size_24sp">24sp</dimen>
+    <dimen name="text_size_26sp">26sp</dimen>
+    <dimen name="text_size_28sp">28sp</dimen>
 </resources>
