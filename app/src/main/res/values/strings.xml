@@ -20,18 +20,23 @@
     <string name="text_powered_by">Powered by #Taazgee</string>
     <string name="text_cup">cup</string>
     <string name="text_cups">cups</string>
-    <string name="text_name">Name :</string>
-    <string name="text_name_warning">Please input the customer name first.</string>
-    <string name="text_no_of_cups">Quantity :</string>
-    <string name="text_total_price">Total price :</string>
-    <string name="text_question_whipped_cream">Whipped cream topping :</string>
-    <string name="text_question_chocolate">Chocolate topping :</string>
-    <string name="text_question_ice_cream">Ice cream topping :</string>
-    <string name="text_question_mint_flavour">Mint flavour topping :</string>
-    <string name="text_thank_you">Thank you for the Order!</string>
-    <string name="text_email_subject">Your order from Coffee Factory.</string>
-    <string name="text_less_cup">Sorry! \nYou cannot order less than 1 cup of coffee.</string>
-    <string name="text_more_cup">Sorry! \nYou cannot order more than 100 cups of coffee.</string>
+    <string name="text_less_cup">You have reached the minimum no. of cup.</string>
+    <string name="text_more_cup">You have reached the maximum no. of cups.</string>
     <string name="text_yes">Added</string>
     <string name="text_no">Not added</string>
+    <string name="text_name_warning">Name field cannot be empty.</string>
+    <string name="text_email_subject">Your order from Coffee Factory.</string>
+
+    <string name="txt_os_add_name">Name : %1$s</string>
+    <string name="txt_os_add_smry">\n\nYour order summary is as follow:-\n</string>
+    <string name="txt_os_add_quantity">\nQuantity : %1$d %2$s</string>
+    <string name="txt_os_add_price">\nTotal Price : ₹ %.2f</string>
+    <string name="txt_os_add_wct">\nWhipped cream topping : %1$s</string>
+    <string name="txt_os_add_ct">\nChocolate topping : %1$s</string>
+    <string name="txt_os_add_ict">\nIce cream topping : %1$s</string>
+    <string name="txt_os_add_mft">\nMint flavour topping : %1$s</string>
+    <string name="txt_os_add_ty">\n\nYour order has been placed.\nYour order will be delivered soon.\nThank you!</string>
+
+    <string name="txt_dsp_nmbr_frmt">%1$d %2$s</string>
+    <string name="txt_dsp_prc_frmt">₹ %.2f</string>
 </resources>

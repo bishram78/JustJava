@@ -7,6 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
+        android:contentDescription="@string/app_name"
         android:src="@drawable/sweet_food_cake"/>
 
     <TextView
@@ -30,6 +31,7 @@
             android:background="@color/colorViewDivider" />
 
         <Button
+            android:id="@+id/id_button_confirm"
             style="@style/MainButtonConfirmStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -177,6 +179,7 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:id="@+id/id_button_decrement"
                         style="@style/MainButtonAddSubStyle"
                         android:layout_width="@dimen/margin_padding_0px"
                         android:layout_height="wrap_content"
@@ -190,6 +193,7 @@
                         android:background="@color/colorViewDivider" />
 
                     <Button
+                        android:id="@+id/id_button_increment"
                         style="@style/MainButtonAddSubStyle"
                         android:layout_width="@dimen/margin_padding_0px"
                         android:layout_height="wrap_content"

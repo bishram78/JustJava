@@ -1,38 +1,33 @@
 package com.example.bishram.justjava;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Locale;
+public class MainActivity extends AppCompatActivity implements TextWatcher {
 
+    private Button buttonConfirm, buttonIncrement, buttonDecrement;
+    private TextView quantityTextView, priceTextView;
+    private EditText customerNameEditText;
+    private CheckBox whippedCreamCheckbox, chocolateCheckbox, iceCreamCheckbox, mintFlavourCheckbox;
 
-public class MainActivity extends AppCompatActivity {
+    private int quantity = 1;
+    private double pricePerCup = 7.25;
+    private double totalPrice;
+    private boolean whippedCreamChecked, chocolateChecked, iceCreamChecked, mintFlavourChecked;
 
-    TextView quantityTextView;
-    TextView priceTextView;
-    EditText customerNameEditText;
-    CheckBox whippedCreamCheckbox;
-    CheckBox chocolateCheckbox;
-    CheckBox iceCreamCheckbox;
-    CheckBox mintFlavourCheckbox;
-
-    int quantity = 1;
-    double pricePerCup = 7.25;
-    double totalPrice;
-    String summaryText = "";
-    String customerName = "";
-    boolean whippedCreamChecked;
-    boolean chocolateChecked;
-    boolean iceCreamChecked;
-    boolean mintFlavourChecked;
+    Resources resources;
 
     private static final String KEY_QUANTITY = "key_quantity";
     private static final String KEY_TOTAL_PRICE = "key_total_price";
@@ -43,10 +38,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initializeViews();
-
+        resources = getResources();
+        customerNameEditText.addTextChangedListener(this);
         totalPrice = calculatePrice();
         display(quantity);
         displayPrice(totalPrice);
+        buttonConfirm.setTextColor(resources.getColor(R.color.colorButtonDisable));
+        buttonConfirm.setEnabled(false);
+        buttonDecrement.setTextColor(resources.getColor(R.color.colorButtonDisable));
+        buttonDecrement.setEnabled(false);
     }
 
     @Override
@@ -70,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
      * This method will get all the views from the layout resource file.
      */
     public void initializeViews(){
+        buttonIncrement = findViewById(R.id.id_button_increment);
+        buttonDecrement = findViewById(R.id.id_button_decrement);
+        buttonConfirm = findViewById(R.id.id_button_confirm);
         quantityTextView = findViewById(R.id.quantity_text_view);
         priceTextView = findViewById(R.id.price_text_view);
         whippedCreamCheckbox = findViewById(R.id.whipped_cream_checkbox);
@@ -78,19 +81,27 @@ public class MainActivity extends AppCompatActivity {
         mintFlavourCheckbox = findViewById(R.id.mint_flavour_checkbox);
         customerNameEditText = findViewById(R.id.edit_text_customer_name);
     }
+
     /**
      * This method is called when PLUS BUTTON is clicked.
      */
     public void increment(View view) {
+        quantity++;
         if (quantity >= 100){
             String positiveText = getString(R.string.text_more_cup);
             mToast(positiveText);
-        }
-        else {
-            quantity++;
             totalPrice = calculatePrice();
             display(quantity);
             displayPrice(totalPrice);
+            buttonIncrement.setTextColor(resources.getColor(R.color.colorButtonDisable));
+            buttonIncrement.setEnabled(false);
+        }
+        else {
+            totalPrice = calculatePrice();
+            display(quantity);
+            displayPrice(totalPrice);
+            buttonDecrement.setTextColor(resources.getColor(R.color.colorWhite));
+            buttonDecrement.setEnabled(true);
         }
     }
 
@@ -98,15 +109,22 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when MINUS BUTTON is clicked.
      */
     public void decrement(View view) {
+        quantity--;
         if (quantity <= 1){
             String negativeText = getString(R.string.text_less_cup);
             mToast(negativeText);
-        }
-        else {
-            quantity--;
             totalPrice = calculatePrice();
             display(quantity);
             displayPrice(totalPrice);
+            buttonDecrement.setTextColor(resources.getColor(R.color.colorButtonDisable));
+            buttonDecrement.setEnabled(false);
+        }
+        else {
+            totalPrice = calculatePrice();
+            display(quantity);
+            displayPrice(totalPrice);
+            buttonIncrement.setTextColor(resources.getColor(R.color.colorWhite));
+            buttonIncrement.setEnabled(true);
         }
     }
 
@@ -130,40 +148,43 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This method create the order summary text shown and send to customer's mail.
      */
+    @SuppressLint("StringFormatInvalid")
     private String createOrderSummary() {
-        customerName = customerNameEditText.getText().toString();
+        String customerName = customerNameEditText.getText().toString();
         checkCheckbox();
 
-        String orderSummary = getString(R.string.text_name) + " " + customerName;
+        String orderSummary;
+        orderSummary = getString(R.string.txt_os_add_name, customerName);
+        orderSummary += getString(R.string.txt_os_add_smry);
+
         if (quantity == 1) {
-            orderSummary += "\n" + getString(R.string.text_no_of_cups) +  " " + quantity + " " + getString(R.string.text_cup);
+            orderSummary += getString(R.string.txt_os_add_quantity, quantity, getString(R.string.text_cup));
         }
         else {
-            orderSummary += "\n" + getString(R.string.text_no_of_cups) + " " + quantity + " " + getString(R.string.text_cups);
+            orderSummary += getString(R.string.txt_os_add_quantity, quantity, getString(R.string.text_cups));
         }
-        orderSummary += "\n" + getString(R.string.text_total_price) + " \u20B9 " + String.format(Locale.getDefault(),"%.2f", totalPrice);
-        orderSummary += "\n";
+        orderSummary += getString(R.string.txt_os_add_price, totalPrice);
         if (whippedCreamChecked)
-            orderSummary += "\n" + getString(R.string.text_question_whipped_cream) + " " + getString(R.string.text_yes);
+            orderSummary += getString(R.string.txt_os_add_wct, getString(R.string.text_yes));
         else
-            orderSummary += "\n" + getString(R.string.text_question_whipped_cream) + " " + getString(R.string.text_no);
+            orderSummary += getString(R.string.txt_os_add_wct, getString(R.string.text_no));
 
         if (chocolateChecked)
-            orderSummary += "\n" + getString(R.string.text_question_chocolate) + " " + getString(R.string.text_yes);
+            orderSummary += getString(R.string.txt_os_add_ct, getString(R.string.text_yes));
         else
-            orderSummary += "\n" + getString(R.string.text_question_chocolate) + " " + getString(R.string.text_no);
+            orderSummary += getString(R.string.txt_os_add_ct, getString(R.string.text_no));
 
         if (iceCreamChecked)
-            orderSummary += "\n" + getString(R.string.text_question_ice_cream) + " " + getString(R.string.text_yes);
+            orderSummary += getString(R.string.txt_os_add_ict, getString(R.string.text_yes));
         else
-            orderSummary += "\n" + getString(R.string.text_question_ice_cream) + " " + getString(R.string.text_no);
+            orderSummary += getString(R.string.txt_os_add_ict, getString(R.string.text_no));
 
         if (mintFlavourChecked)
-            orderSummary += "\n" + getString(R.string.text_question_mint_flavour) + " " + getString(R.string.text_yes);
+            orderSummary += getString(R.string.txt_os_add_mft, getString(R.string.text_yes));
         else
-            orderSummary += "\n" + getString(R.string.text_question_mint_flavour) + " " + getString(R.string.text_no);
-        orderSummary += "\n";
-        orderSummary += "\n" + getString(R.string.text_thank_you);
+            orderSummary += getString(R.string.txt_os_add_mft, getString(R.string.text_no));
+        orderSummary += getString(R.string.txt_os_add_ty);
+
         return orderSummary;
     }
 
@@ -171,27 +192,14 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        customerName = customerNameEditText.getText().toString();
-        int length = customerName.length();
-        if(length > 0) {
-            summaryText = createOrderSummary();
-
-            Intent intent = new Intent(Intent.ACTION_SENDTO);
-            intent.setData(Uri.parse("mailto:"));
-            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.text_email_subject));
-            intent.putExtra(Intent.EXTRA_TEXT, summaryText);
-            if (intent.resolveActivity(getPackageManager()) != null)
-                startActivity(intent);
-
-            quantity = 1;
-            pricePerCup = 7.25;
-            display(quantity);
-            displayPrice(pricePerCup);
-        }
-        else {
-            customerName = getString(R.string.text_name_warning);
-            mToast(customerName);
-        }
+        String summaryText = createOrderSummary();
+//
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.text_email_subject));
+        intent.putExtra(Intent.EXTRA_TEXT, summaryText);
+        if (intent.resolveActivity(getPackageManager()) != null)
+            startActivity(intent);
     }
 
     /**
@@ -270,11 +278,11 @@ public class MainActivity extends AppCompatActivity {
      */
     private void display(int number) {
         if (number > 1){
-            String textStr = number + " " + getString(R.string.text_cups);
+            String textStr = getString(R.string.txt_dsp_nmbr_frmt, number, getString(R.string.text_cups));
             quantityTextView.setText(textStr);
         }
         else{
-            String textStr = number + " " + getString(R.string.text_cup);
+            String textStr = getString(R.string.txt_dsp_nmbr_frmt, number, getString(R.string.text_cup));
             quantityTextView.setText(textStr);
         }
     }
@@ -285,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
      * @param number is the total price of the coffee ordered.
      */
     private void displayPrice(double number) {
-        String textStr = "\u20B9\u0020" + String.format(Locale.getDefault(),"%.2f", number);
+        String textStr = getString(R.string.txt_dsp_prc_frmt, number);
         priceTextView.setText(textStr);
     }
 
@@ -305,8 +313,34 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This is toast method.
+     *
+     * @param text is the message to be shown in the Toast.
      */
     public void mToast(String text) {
         Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+        int textLength = editable.toString().length();
+        if (textLength == 0) {
+            customerNameEditText.setError(getString(R.string.text_name_warning));
+            buttonConfirm.setTextColor(getResources().getColor(R.color.colorButtonDisable));
+            buttonConfirm.setEnabled(false);
+        }
+        else {
+            buttonConfirm.setEnabled(true);
+            buttonConfirm.setTextColor(getResources().getColor(R.color.colorWhite));
+        }
     }
 }
